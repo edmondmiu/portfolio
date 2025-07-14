@@ -261,12 +261,19 @@ a:hover {
 .emoji.wave {
     display: inline-block;
     margin-left: -2.5rem;
-    margin-top: -0.2rem;
     margin-right: 0.5rem;
     font-size: 2rem;
-    vertical-align: top;
+    vertical-align: baseline;
     animation: wave 2.5s infinite;
     transform-origin: 70% 70%;
+}
+
+/* Desktop-only positioning for wave emoji */
+@media (min-width: 960px) {
+    .emoji.wave {
+        position: relative;
+        top: 2rem;
+    }
 }
 
 @keyframes wave {
@@ -483,8 +490,14 @@ dotlottie-player {
     }
 
     .hero-title {
-        font-size: 2.5rem;
+        font-size: 2rem;
+        align-items: center;
     }
+
+    .emoji.wave {
+        margin-left: 0;
+    }
+}
 
     .hero-subtitle {
         font-size: 1.25rem;
