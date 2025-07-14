@@ -1,28 +1,43 @@
-// Mobile Menu Toggle
+// Enhanced Component Loading System
 document.addEventListener('DOMContentLoaded', () => {
+    // Component cache for better performance
+    if (!window.componentCache) window.componentCache = {};
+    
     const loadComponent = async (path, placeholderId) => {
         const placeholder = document.getElementById(placeholderId);
         if (!placeholder) return;
 
         try {
-            const response = await fetch(path);
-            if (!response.ok) throw new Error(`Failed to fetch ${path}`);
-            const html = await response.text();
+            let html;
+            
+            // Use cache if available
+            if (window.componentCache[path]) {
+                html = window.componentCache[path];
+            } else {
+                const response = await fetch(path);
+                if (!response.ok) throw new Error(`Failed to fetch ${path} (${response.status})`);
+                html = await response.text();
+                // Cache for future use
+                window.componentCache[path] = html;
+            }
             
             const temp = document.createElement('div');
             temp.innerHTML = html.trim();
-            const componentElement = temp.firstElementChild;
+            
+            // Find the actual component element (skip all script tags that Vite might inject)
+            const componentElement = Array.from(temp.children)
+                .find(child => child.tagName !== 'SCRIPT');
             
             if (componentElement) {
                 placeholder.replaceWith(componentElement);
             } else {
-                placeholder.remove();
+                console.warn(`No valid component found in ${path}`);
+                placeholder.style.display = 'none';
             }
         } catch (error) {
-            console.error(`Error loading component from ${path}:`, error);
-            if (placeholder) {
-                placeholder.textContent = `Error: Could not load ${path}.`;
-            }
+            console.error(`Component loading failed: ${path}`, error);
+            // Graceful fallback - hide placeholder instead of showing error text
+            placeholder.style.display = 'none';
         }
     };
 
@@ -46,10 +61,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // --- Post-Component-Load Initializations ---
 
-        // Set dynamic copyright year
-        const yearSpan = document.getElementById('copyright-year');
-        if (yearSpan) {
-            yearSpan.textContent = new Date().getFullYear();
+        // Set dynamic copyright year (with retry logic)
+        const setCopyrightYear = () => {
+            const yearSpan = document.getElementById('copyright-year');
+            if (yearSpan) {
+                yearSpan.textContent = new Date().getFullYear();
+                return true;
+            }
+            return false;
+        };
+        
+        // Try immediately, then retry if needed
+        if (!setCopyrightYear()) {
+            setTimeout(setCopyrightYear, 100);
         }
 
         // Handle smooth scrolling for on-page anchor links
