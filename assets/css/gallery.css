@@ -104,7 +104,7 @@
     width: 100%;
     height: 100%;
     object-fit: contain;
-    filter: grayscale(100%);
+    filter: grayscale(0%);
     /* Enhanced rendering for low-res images in lightbox */
     image-rendering: -webkit-optimize-contrast;
     image-rendering: crisp-edges;
