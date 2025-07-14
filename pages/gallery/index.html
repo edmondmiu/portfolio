@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photo Gallery - Edmond Miu</title>
+    
+    <!-- Preconnect to external domains -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="../../assets/css/main.css">
+    <style>
+        /* Clean, simple gallery styles */
+        .gallery-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 4rem 2rem 2rem;
+        }
+        
+        .gallery-grid {
+            column-count: 2;
+            column-gap: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .gallery-grid {
+                column-count: 1;
+            }
+        }
+        
+        .gallery-item {
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            break-inside: avoid;
+            margin-bottom: 20px;
+            display: block;
+        }
+        
+        .gallery-item:hover {
+            transform: scale(1.02);
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+            filter: grayscale(100%);
+            transition: filter 0.3s ease;
+        }
+        
+        .gallery-item:hover img {
+            filter: grayscale(0%);
+        }
+        
+        /* Lightbox */
+        .lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            display: none;
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .lightbox.active {
+            display: flex;
+        }
+        
+        .lightbox img {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+            filter: grayscale(100%);
+        }
+        
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+        
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            padding: 1rem 0.5rem;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        
+        .lightbox-prev { left: 20px; }
+        .lightbox-next { right: 20px; }
+        
+        /* Mobile */
+        @media (max-width: 768px) {
+            .gallery-container {
+                padding: 3rem 1rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div id="header-placeholder"></div>
+
+    <!-- Main Content -->
+    <main class="gallery-container">
+        <div class="gallery-grid" id="galleryGrid">
+            <!-- Images will be loaded here -->
+        </div>
+    </main>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+        <button class="lightbox-close" id="lightboxClose">&times;</button>
+        <button class="lightbox-nav lightbox-prev" id="lightboxPrev">&lt;</button>
+        <button class="lightbox-nav lightbox-next" id="lightboxNext">&gt;</button>
+        <img id="lightboxImage" src="" alt="">
+    </div>
+
+    <!-- Footer -->
+    <div id="footer-placeholder"></div>
+
+    <script src="../../assets/js/main.js"></script>
+    <script>
+        // Simple, clean gallery script
+        const images = [
+            'FullSizeRender.jpg',
+            '20080407195043_20070913-img_1306-edit.jpg',
+            '20080429071738_20080426-img_5018.jpg',
+            '20071119011307_img_2748.jpg',
+            '20080228232159_img_2718.jpg',
+            'DSCF1259.jpg',
+            'IMG_3808.jpg',
+            'IMG_4266.jpg',
+            '20070917012151_20070913-img_1221.jpg',
+            '20070917013446_20070812-img_8751.jpg',
+            '20081223-20081223-img_0438.jpg',
+            '20070531232816_20070531-img_6580-edit.jpg',
+            '20070528005203_20070505-img_5132.jpg',
+            '20070602000512_20070519-img_6172.jpg',
+            '20070924225511_20070912-img_1208.jpg',
+            '20071104041654_20070913-20070913-img_1477-2.jpg',
+            '20080222190212__mg_4524.jpg',
+            '20080720-img_7955.jpg',
+            '20071025031228_20070913-img_1442.jpg',
+            '20080315004040_20070911-img_0747-edit.jpg',
+            'IMG_2916.jpg',
+            'IMG_6136.jpg',
+            'IMG_6355.jpg',
+            '20081012-20081013-img_9835.jpg',
+            '20090810-20090810-img_2514.jpg',
+            'IMG_3886.jpg',
+            '20080104-_mg_3895-2.jpg',
+            'IMG_4916.jpg',
+            '20070917010024_20070322-img_3554.jpg',
+            '20071121030617_img_2701-edit.jpg',
+            '20080504233212_20080426-untitled_panorama1.jpg',
+            'DSCF0400.jpg',
+            '20070917010751_20070816-img_9098.jpg',
+            '20070917010241_20070725-img_7823-edit.jpg',
+            '20070929013506_20070913-img_1269.jpg',
+            'IMG_4350-Edit.jpg',
+            '20080222185844__mg_4369.jpg',
+            '20070917010146_20070505-img_4856.jpg',
+            '20070917010940_20070825-img_9553.jpg',
+            '20071113024747_20070913-img_1341_edit.jpg'
+        ];
+
+        let currentIndex = 0;
+        const galleryGrid = document.getElementById('galleryGrid');
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImage = document.getElementById('lightboxImage');
+
+        // Load images
+        images.forEach((filename, index) => {
+            const item = document.createElement('div');
+            item.className = 'gallery-item';
+            
+            const img = document.createElement('img');
+            img.src = `/assets/images/gallery/${filename}`;
+            img.alt = `Photograph ${index + 1}`;
+            
+            item.appendChild(img);
+            galleryGrid.appendChild(item);
+            
+            // Click to open lightbox
+            item.addEventListener('click', () => {
+                currentIndex = index;
+                openLightbox();
+            });
+        });
+
+        // Lightbox functions
+        function openLightbox() {
+            lightboxImage.src = `/assets/images/gallery/${images[currentIndex]}`;
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function nextImage() {
+            currentIndex = (currentIndex + 1) % images.length;
+            lightboxImage.src = `/assets/images/gallery/${images[currentIndex]}`;
+        }
+
+        function prevImage() {
+            currentIndex = (currentIndex - 1 + images.length) % images.length;
+            lightboxImage.src = `/assets/images/gallery/${images[currentIndex]}`;
+        }
+
+        // Event listeners
+        document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
+        document.getElementById('lightboxPrev').addEventListener('click', prevImage);
+        document.getElementById('lightboxNext').addEventListener('click', nextImage);
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (!lightbox.classList.contains('active')) return;
+            
+            switch (e.key) {
+                case 'Escape': closeLightbox(); break;
+                case 'ArrowLeft': prevImage(); break;
+                case 'ArrowRight': nextImage(); break;
+            }
+        });
+
+        // Click outside to close
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) closeLightbox();
+        });
+
+        console.log('Simple gallery loaded with', images.length, 'images');
+    </script>
+</body>
+</html> 

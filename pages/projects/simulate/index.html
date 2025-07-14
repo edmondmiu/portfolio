@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Simulate Project - edmondmiu.com</title>
+    <meta name="description" content="A case study on the design of Simulate, a solution to increase betting opportunities when limited football matches are available.">
+    
+    <!-- Shared Styles -->
+    <link rel="stylesheet" href="/assets/css/main.css">
+    
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="/assets/images/ui/square-1.png" sizes="32x32">
+</head>
+<body>
+
+    <div id="header-placeholder"></div>
+
+    <main id="main">
+        <article class="project-page">
+
+            <!-- Project Hero -->
+            <section class="project-hero-layout container">
+                <div class="hero-text">
+                    <h1>Real Odds<br>Real Bets</h1>
+                    <h4>Simulate Sports Betting</h4>
+                </div>
+            </section>
+            
+            <!-- My Role -->
+            <section class="two-column-layout container">
+                <div class="two-column-layout__heading">
+                    <h3>My Role</h3>
+                </div>
+                <div class="two-column-layout__content">
+                    <p>Individual design contributor. Branding, end to end userflow, refining the user experience and supporting developers to realise the end goal.</p>
+                </div>
+            </section>
+
+            <section class="project-media full-width">
+                <img src="/assets/images/projects/simulateapp1.jpg" alt="Simulate App Interface on several phones">
+            </section>
+
+            <!-- The Problem -->
+            <section class="two-column-layout container">
+                <div class="two-column-layout__heading">
+                    <h3>The Problem</h3>
+                </div>
+                <div class="two-column-layout__content">
+                    <h4>👉 Reduced betting market during off season</h4>
+                    <p>During the off seasons there are limited events happening and users didn't have much choice in their betting opportunities. Users wanted a quick game inbetween moments, or a social space to hang out with entertainment.</p>
+                </div>
+            </section>
+
+            <!-- User Research -->
+            <section class="two-column-layout container">
+                <div class="two-column-layout__heading">
+                    <h3>User Research</h3>
+                </div>
+                <div class="two-column-layout__content">
+                    <h4>🎛 Quantitative Research</h4>
+                    <p>From data gathered we see that there are 2 main access channels and users types.</p>
+                    <p>📱 The online retail users who access via a mobile, and that is the main form of internet access. Most access would be done via an android device likely 1 – 2 years old.</p>
+                    <p>🏪 The cashier users, whose access to any product would be from a shop. They are exposed to marketing materials and try out new products that are promoted to them in these shops.</p>
+                    <h4>⚽️ Qualitative Research</h4>
+                    <p>We asked for help in this phase as local knowledge is vital in creating a product people want to use. We put together questions to ask what the users do when there are less sporting events happening. Most would fill the time either playing casino games, or football related mobile games.</p>
+                    <p>In the shop the users have chosen to place bets via the cashier or self service tills. After speaking to locals the response is usually due to trust and having a person to physically interact with. Speaking with the cashiers who service the users, we find out these shops have turned into social gather spots where people hang out.</p>
+                </div>
+            </section>
+            
+            <!-- The Idea -->
+            <section class="two-column-layout container">
+                <div class="two-column-layout__heading">
+                    <h3>The Idea</h3>
+                </div>
+                <div class="two-column-layout__content">
+                    <p>💨 The user is able to use the real odds to place a bet on a simulated outcome. The bet would be settled immediately, and to prolong the opportunities, the user can bet on it again, with each bet made, it's outcome is re-simulated.</p>
+                    <p>93% of the users from the host website were mobile users, so for the MVP this would be the first group to build for.</p>
+                    <p>We had a ripe launch environment, leveraging the popularity of the host, and the user demand gave an opportunity for this app to succeed.</p>
+                </div>
+            </section>
+
+            <!-- The user & data flow -->
+            <section class="two-column-layout container">
+                <div class="two-column-layout__heading">
+                    <h3>The user &amp;<br>data flow</h3>
+                </div>
+                <div class="two-column-layout__content">
+                     <h4>🎁 Entering the simulation</h4>
+                     <p>The logged in host user would enter the product via a switch on the bet slip. The challenge here was to allow the user to move seamlessly into another environment.</p>
+                     <p>We needed to understand what information can be transfered from the host site, what data we needed to return to the host. Having clear needs defined helped us move quickly at a later stage as the host was larger, changes will inevitably be more complex and time consuming.</p>
+                </div>
+            </section>
+
+            <!-- Full-Width Image -->
+            <section class="project-media full-width">
+                 <img src="/assets/images/projects/simulatev1flow-e1629057309105.jpg" alt="Simulate V1 Flow Diagram">
+            </section>
+
+            <!-- Wireframing -->
+            <section class="two-column-layout container">
+                <div class="two-column-layout__heading">
+                    <h3>Wireframing at mid fidelity</h3>
+                </div>
+                <div class="two-column-layout__content">
+                    <h4>🧱Does it all make sense when it comes together?</h4>
+                    <p>After the userflow was mature enough I started to wireframe, placing components and defining the look and feel of the branding, forming a rudimentry component library. This method allowed the FE to concurrently build reusable components into storybook. I had to make sure that FE was only building assets that were certain to appear in the app.</p>
+                </div>
+            </section>
+            
+            <!-- Full-Width Image -->
+            <section class="project-media full-width">
+                <a href="https://www.figma.com/proto/fzFooBrtAtfZTHlUUEeYCe/Simulate-Prototype?page-id=0%3A1&node-id=1%3A15456&viewport=481%2C48%2C0.64&scaling=min-zoom&starting-point-node-id=1%3A15456" target="_blank" rel="noopener">
+                    <img src="/assets/images/projects/simulatedemo1-e1629063166919.jpg" alt="Figma Prototype for Simulate">
+                </a>
+                <div class="container caption-container">
+                    <small>(Opens Figma Prototype in a new tab)</small>
+                </div>
+            </section>
+
+            <!-- Usability Testing -->
+            <section class="two-column-layout container">
+                <div class="two-column-layout__heading">
+                    <h3>Usability Testing</h3>
+                </div>
+                <div class="two-column-layout__content">
+                    <h4>🔊 High-Fidelity testing</h4>
+                    <p>We tested the interface using figmas prototyping tools to check how it all fits together.</p>
+                    <p>Interaction animations were tested using after effects. The easing and timing were fine tuned here.</p>
+                    <a href="/assets/videos/projects/all-animations-2.mp4" target="_blank" rel="noopener">Open link to video prototype</a>
+                </div>
+            </section>
+            
+             <!-- Full-Width Image -->
+            <section class="project-media full-width">
+                <img src="/assets/images/projects/swipem.jpg" alt="Swipe interaction demo">
+            </section>
+
+            <!-- Development -->
+            <section class="two-column-layout container">
+                <div class="two-column-layout__heading">
+                    <h3>Development</h3>
+                </div>
+                <div class="two-column-layout__content">
+                    <h4>🏟 Teaming up with the developers</h4>
+                    <p>Team huddles with PM, BE, FE and design happened often to keep everyone informed of the latest updates.</p>
+                    <p>I supported the FE developers by making animations for micro animations and page state transitions, this helped to illustrate exactly what we had in mind.</p>
+                </div>
+            </section>
+
+             <!-- Video Section -->
+            <section class="project-media full-width">
+                <video controls autoplay muted loop playsinline>
+                    <source src="/assets/videos/projects/Match.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </section>
+
+             <!-- User Testing -->
+            <section class="two-column-layout container">
+                <div class="two-column-layout__heading">
+                    <h3>User Testing</h3>
+                </div>
+                <div class="two-column-layout__content">
+                    <h4>🔎 Did we manage to solve our users problems?</h4>
+                    <p>We now had a working product to begin user testing end 2 end. We ran internal testings, and once that had passed with tested it on real users. It was first launched to 200 Users, and we gathered information from them, looking for any bugs that might have been missed, and general feedback that concerns usability.</p>
+                    <p>From speaking to them we found that general reception was good, and people were eager to play. But….</p>
+                    <ul>
+                        <li>Realism was off, users felt there were too many consecutive goals in a short space of time and happened too often in multiple games.</li>
+                        <li>Users had to move back and forth between the game and the host site to add different events into their selections.</li>
+                    </ul>
+                </div>
+            </section>
+            
+            <!-- Takeaways -->
+            <section class="two-column-layout container">
+                <div class="two-column-layout__heading">
+                    <h3>Takeaways</h3>
+                </div>
+                <div class="two-column-layout__content">
+                     <p>🥡 The steps of product design does not always work in the same order, it depends on the scope, launch environments, trade offs and the experience of the team.</p>
+                     <p>When communicating animations and ideas, using illustrations to explain how you see it being put together helps to illustrate how you see an animation happening. Once the idea is understood the developer is only then able to solve the problem.</p>
+                     <p>Developing the relationship between the developer and the designer is vital in order to realise designs. Trust and respect are the cornerstones of this.</p>
+                </div>
+            </section>
+
+            <!-- Next Steps -->
+            <section class="two-column-layout container">
+                <div class="two-column-layout__heading">
+                    <h3>Next Steps Refinements, &amp; Refactoring</h3>
+                </div>
+                <div class="two-column-layout__content">
+                    <h4>💪So the MVP was good? What now?</h4>
+                    <p>After the success of Simulate, we went onto refactor the webapp. Adding and refining the design system from a figma component library for designers only, to branching out into a storybook library for developers. <br>I go into more detail about how a design system is built <a href="/saas-design-system/">here</a> for a different product.</p>
+                    <p>Further features are now in the development stage.</p>
+                    <ul>
+                        <li>User interactions during the match.</li>
+                        <li>More in match events like attacking play and offside</li>
+                        <li>[ ✅ Done ] A desktop interface for cashiers and self service. <em>(write up coming soon)</em></li>
+                        <li>[ ✅ Done ] The ability for the user to stay inside the webapp to add more selections to the betslip <em>(write up coming soon)</em></li>
+                        <li>A loyalty bonus scheme</li>
+                    </ul>
+                </div>
+            </section>
+            
+            <!-- The Numbers -->
+            <section class="two-column-layout container">
+                <div class="two-column-layout__heading">
+                    <h3>Some numbers please?</h3>
+                </div>
+                <div class="two-column-layout__content">
+                    <p>🔮 In July 2020, the MVP made a successful initial launch to 200 users with around 5k bets a day in the first 2 weeks.</p>
+                    <p>September 2020, Launch of Turbo speed game play, and accept new odds features. 8k users and 120k bets a day.</p>
+                    <p>December 2020, Hosts old mobile integration launch with 10k bets on that platform alone. Christmas day 320k bets.</p>
+                    <p>March 2021, Migration to V2 Design System, launching of cashier integration it hit a record 340k bets a day.</p>
+                    <p>In August 2021 it is sitting at around 300,000 bets and 30,000 bets in cashiers a day.</p>
+                </div>
+            </section>
+
+        </article>
+    </main>
+
+    <div id="footer-placeholder"></div>
+    
+    <!-- Scripts -->
+    <script src="/assets/js/main.js"></script>
+
+</body>
+</html> 

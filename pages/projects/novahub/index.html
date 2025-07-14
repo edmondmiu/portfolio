@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>NovaHub – Edmond Miu</title>
+    <meta name="description" content="A case study on building a SaaS Design System for NovaHub, a comprehensive backoffice suite.">
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="/assets/images/ui/square-1.png" sizes="32x32">
+</head>
+<body>
+    <div id="header-placeholder"></div>
+    <main id="main">
+        <article class="project-page">
+            <!-- Project Hero -->
+            <section class="project-hero-layout container">
+                <div class="hero-text">
+                    <h1>Building a SaaS Design System</h1>
+                    <h4>Sort of from scratch.</h4>
+                </div>
+            </section>
+            <!-- My Role -->
+            <section class="two-column-layout container">
+                <div class="two-column-layout__heading">
+                    <h3>My Role</h3>
+                </div>
+                <div class="two-column-layout__content">
+                    <p>Ownership of the project and brought about company buy-in on a problem that is preventable.</p>
+                    <p>Led the design system initiative for a 20-person company, serving 50+ users across 1 designer and 6 developers. Presented the business case to company owners and product owners, demonstrating how the system would accelerate both design and development workflows while maintaining visual consistency.</p>
+                </div>
+            </section>
+            <section class="project-media full-width">
+                <img src="/assets/images/projects/novahub_expand-e1612823803570.jpg" alt="NovaHub Design System">
+            </section>
+            <!-- The Problem -->
+            <section class="two-column-layout container">
+                <div class="two-column-layout__heading">
+                    <h3>The Problem</h3>
+                </div>
+                <div class="two-column-layout__content">
+                    <h4>👉 Internal Solutions</h4>
+                    <p>We are building a backoffice suite that consisted of many products and their teams.</p>
+                    <p>Design, organisation and brand fragmentation would occur without a foundation for all parties to rely on.</p>
+                    <p>A design system holds together the rules that a designer is suggested to use. It helps the teams stay organised and facilitates the reuse of components.</p>
+                    <p>This helps us remain efficient by helping us spend less time designing and developing components that could only be marginally different.</p>
+                    <p><strong>Scale Challenge:</strong> As the sole designer supporting 6 developers and 50+ users, it would have been impossible to design every feature detail while maintaining consistency. The design system became essential for enabling rapid development without sacrificing quality.</p>
+                </div>
+            </section>
+            <!-- The Foundation -->
+            <section class="two-column-layout container">
+                <div class="two-column-layout__heading">
+                    <h3>The Foundation</h3>
+                </div>
+                <div class="two-column-layout__content">
+                    <p>🦴 The backbone of the Design System for the design team is the component library.</p>
+                    <p>It is where I began putting together the elements needed to form a solid foundation.</p>
+                    <p>The elements include Atoms, Molecules, Organisms, Templates and Pages.</p>
+                    <p>Further reading into <a href="https://bradfrost.com/blog/post/atomic-web-design/">Atomic Design</a> by Brad Frost is highly recommended.</p>
+                    <p><strong>Scale & Implementation:</strong> Built approximately 5,000 components including nested variations over 2 months, with development accelerating as more reusable tokens and components were created. Used Material UI and Figma as primary tools, with the system still in active use 7 years later after one major code refactor.</p>
+                </div>
+            </section>
+            <!-- Naming Conventions -->
+            <section class="two-column-layout container">
+                <div class="two-column-layout__heading">
+                    <h3>Naming Conventions</h3>
+                </div>
+                <div class="two-column-layout__content">
+                    <p>🤖 To facilitate speedy front end developer handoffs, and cohesion once the team scales up. We followed a naming convention</p>
+                    <pre>theme_platform_type_variant_status</pre>
+                    <p>For example: <code>dark_web_button_primary_active</code> or <code>light_mobile_input_text_focused</code></p>
+                </div>
+            </section>
+            <!-- Spacing -->
+            <section class="two-column-layout container">
+                <div class="two-column-layout__heading">
+                    <h3>Spacing</h3>
+                </div>
+                <div class="two-column-layout__content">
+                    <p>🪐 Uniform spacing rules allow the interface to always be consistent. I used the 8pt system, which helped keep everything easily divisible so widths and heights would always fall on the 8pt grid. Half pixels be gone!</p>
+                    <img src="/assets/images/projects/spacing.jpg" alt="Spacing System">
+                </div>
+            </section>
+            <!-- Typography -->
+            <section class="two-column-layout container">
+                <div class="two-column-layout__heading">
+                    <h3>Typography</h3>
+                </div>
+                <div class="two-column-layout__content">
+                    <p>📚 Beautiful typography that scales and falls on gridlines defines the way a product feels.</p>
+                    <p>When deciding on the type-face I paid particular attention to the end-user personas.</p>
+                    <p>A lot of external resources are already available today, which helped guide me in sizing, line heights and margins.</p>
+                    <p>I used web resources and secondary evidence research as a quick start in helping our small team get off the ground.</p>
+                    <p>Much thanks to:<br>IBM – <a href="https://www.carbondesignsystem.com/" target="_blank" rel="noopener">Carbon Design System</a><br>Apple – <a href="https://developer.apple.com/design/human-interface-guidelines/" target="_blank" rel="noopener">Human Interface Guidelines</a><br>Google – <a href="https://material.io/design" target="_blank" rel="noopener">Material Design</a></p>
+                </div>
+            </section>
+            <!-- Colour -->
+            <section class="two-column-layout container">
+                <div class="two-column-layout__heading">
+                    <h3>Colour</h3>
+                </div>
+                <div class="two-column-layout__content">
+                    <h4>🎨 Brand</h4>
+                    <p>Colours taken from the branding, are used as an accent, usually reserved for graphics, it portrays the friendly inviting nature of the company culture.</p>
+                    <video controls autoplay muted loop playsinline>
+                        <source src="/assets/images/projects/branderror1.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+            </section>
+            <section class="two-column-layout container">
+                <div class="two-column-layout__heading">
+                    <h3></h3>
+                </div>
+                <div class="two-column-layout__content">
+                    <h4>📈 Charts</h4>
+                    <p>Being an information rich SaaS platform we needed colours that could be used to help categorise and provide visual cues to help the user understand related data.</p>
+                    <p>The colours were chosen to keep harmony with the existing colour pallete with a slight leaning towards more saturation to help it stand out from the interface.</p>
+                    <img src="/assets/images/projects/chart.jpg" alt="Chart Colors">
+                </div>
+            </section>
+            <section class="two-column-layout container">
+                <div class="two-column-layout__heading">
+                    <h3></h3>
+                </div>
+                <div class="two-column-layout__content">
+                    <h4>🚀 Action</h4>
+                    <p>Action colours are signifiers that help the user identify locations of the interface that have interaction significance. A complimentry colour to the brand was chosen to allow the call to actions to stand out.</p>
+                    <h4>😐 Neutral</h4>
+                    <p>Usually in greyscale, it is a decision based on the principle that content is king. I wanted the content and the call to actions to remain the focus. This pallette helps form the largest part of the interface, as these colours are used to help separate the layout. It was important to get right with naming and organisation to aid easy colour changes when we move on to building a dark mode.</p>
+                    <img src="/assets/images/projects/greyscale.jpg" alt="Greyscale Colors">
+                </div>
+            </section>
+            <section class="two-column-layout container">
+                <div class="two-column-layout__heading">
+                    <h3></h3>
+                </div>
+                <div class="two-column-layout__content">
+                    <h4>🧻 Surfaces</h4>
+                    <p>Much like the Neutral colour set surfaces was seperated out in preparation for allowing the interface to support more surface colours. A surface group would not have been needed but I wanted the flexibility to use more colours if the situation called for it. This decision was made purely for scalability and flexibility.</p>
+                    <h4>👋 Response</h4>
+                    <p>This colour set provides the response messaging, where the user has direct feedback from their interaction. It is split into Positive, Negative and Informative.</p>
+                    <img src="/assets/images/projects/Response.jpg" alt="Response Colors">
+                </div>
+            </section>
+            <!-- Molecules -->
+            <section class="two-column-layout container">
+                <div class="two-column-layout__heading">
+                    <h3>Molecules</h3>
+                </div>
+                <div class="two-column-layout__content">
+                    <h4>👇 Buttons</h4>
+                    <img src="/assets/images/projects/buttons.jpg" alt="Button Components">
+                </div>
+            </section>
+            <section class="two-column-layout container">
+                <div class="two-column-layout__heading">
+                    <h3></h3>
+                </div>
+                <div class="two-column-layout__content">
+                    <h4>👍 Inputs</h4>
+                    <img src="/assets/images/projects/Input-Methods.jpg" alt="Input Components">
+                </div>
+            </section>
+            <!-- Tables -->
+            <section class="two-column-layout container">
+                <div class="two-column-layout__heading">
+                    <h3>Tables</h3>
+                </div>
+                <div class="two-column-layout__content">
+                    <p>📀 Tables could be seen as a large part of the component library in a SaaS platform.</p>
+                    <p>It is still the most efficient way to present a large amount of detailed data to users, and is well understood in its handling. From a usability perspective it minimalised the learning curve.</p>
+                    <p>Within HTML there are 2 methods of organising, in rows and columns. This would depend on the data it is presenting and how that data is related to each other.</p>
+                    <p>In the component library I had to account for these situations and build the design in a way to allow templates to be made with fluidity, and without disconnecting from the component library.</p>
+                    <img src="/assets/images/projects/tables.jpg" alt="Table Components">
+                </div>
+            </section>
+            <!-- Header & Menu -->
+            <section class="two-column-layout container">
+                <div class="two-column-layout__heading">
+                    <h3>Header &amp; Menu</h3>
+                </div>
+                <div class="two-column-layout__content">
+                    <p>🦁 The header and menu form the core of the user navigational system.</p>
+                    <p>A key feature is allowing our users to switch the brands they manage. This helped to keep the menu bar concise and reduce repeated sections.</p>
+                    <p>The brand switch freed space to allow for a future marketing feature to be placed which cross sells other product modules that we believe could be beneficial for our users workflows.</p>
+                    <img src="/assets/images/projects/Brand-Switch-Multi.png" alt="Header & Menu">
+                </div>
+            </section>
+            <!-- Templates & Pages -->
+            <section class="two-column-layout container">
+                <div class="two-column-layout__heading">
+                    <h3>Templates &amp; Pages</h3>
+                </div>
+                <div class="two-column-layout__content">
+                    <p>⚡️In order to provide a quick start guide, base templates were made.</p>
+                    <p>These templates facilitates bringing together teams to communicate the aims of their product/feature. It acts as a sticker sheet to immediately start a conversation, in order to gain insight and produce a brief for the design team to begin thinking in already pre made user flows.</p>
+                </div>
+            </section>
+            <!-- On going growth -->
+            <section class="two-column-layout container">
+                <div class="two-column-layout__heading">
+                    <h3>On going growth</h3>
+                </div>
+                <div class="two-column-layout__content">
+                    <h4>📱Mobile Translation.</h4>
+                    <p>As a data heavy product a mobile translation is often a challenge. Using user interviews to focus on what information is needed the most would be the ideal path. A grid system was used in development to pre-empt this optimisation phase.</p>
+                    <h4>⚙️UI Component Testing</h4>
+                    <p>As the teams grow, potential inconsistencies with UI design and the implementation of components also grows. Closing the gap between the team is now vital for continued growth and keeping abreast of efficiencies.</p>
+                </div>
+            </section>
+            <!-- Takeaways -->
+            <section class="two-column-layout container">
+                <div class="two-column-layout__heading">
+                    <h3>Takeaways</h3>
+                </div>
+                <div class="two-column-layout__content">
+                    <p>🥡 A design system is never fully completed and will continue to evolve and optimise as the needs of the business and market trends continue to develop and pivot.</p>
+                    <p>The foresight of solid foundations allow for smooth transitions of requirements will save time and effort. It can then be invested into growth of the team and it's skillset.</p>
+                    <p>As the design team grows we allow the team members to concentrate on building better user experiences. This concentration of effort allows our SaaS to be continuously improved maintaining our client base.</p>
+                    <p>The product needs to continuously serve its purpose, build trust and delight in order to succeed.</p>
+                    <p><strong>Long-term Success:</strong> The design system has proven its value by remaining in active use for 7+ years, supporting the company's growth while maintaining the original foundations. The initial 2-month investment continues to pay dividends through consistent user experience and accelerated development cycles.</p>
+                    <p><strong>Team Adoption:</strong> While initial adoption required education on the importance of visual details for business tools, the system ultimately enabled faster development and better user trust. Developers benefited from repeatable patterns, while users gained a more consistent and reliable interface.</p>
+                </div>
+            </section>
+        </article>
+    </main>
+    <div id="footer-placeholder"></div>
+    <!-- Scripts -->
+    <script src="/assets/js/main.js"></script>
+</body>
+</html> 
