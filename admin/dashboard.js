@@ -1,19 +1,69 @@
-// Firebase Configuration
-const firebaseConfig = {
-    apiKey: "REMOVED_FIREBASE_API_KEY",
-    authDomain: "edmondmiuportfolio.firebaseapp.com",
-    projectId: "edmondmiuportfolio",
-    storageBucket: "edmondmiuportfolio.firebasestorage.app",
-    messagingSenderId: "636761626976",
-    appId: "1:636761626976:web:f38a54afbeee2db29b6605"
-};
+let auth = null;
+let db = null;
 
-// Initialize Firebase
-console.log('Initializing Firebase with config:', firebaseConfig);
-firebase.initializeApp(firebaseConfig);
-const auth = firebase.auth();
-const db = firebase.firestore();
-console.log('Firebase initialized successfully');
+// Load Firebase configuration from Hosting runtime so we avoid committing secrets
+async function initializeFirebase() {
+    if (firebase.apps && firebase.apps.length > 0) {
+        return {
+            auth: firebase.auth(),
+            db: firebase.firestore()
+        };
+    }
+
+    const response = await fetch('/__/firebase/init.json');
+    if (!response.ok) {
+        throw new Error(`Failed to load Firebase configuration (${response.status})`);
+    }
+
+    const firebaseConfig = await response.json();
+    firebase.initializeApp(firebaseConfig);
+    return {
+        auth: firebase.auth(),
+        db: firebase.firestore()
+    };
+}
+
+async function initializeDashboard() {
+    try {
+        const instances = await initializeFirebase();
+        auth = instances.auth;
+        db = instances.db;
+        console.log('Firebase initialized successfully');
+        setupAuthListener();
+    } catch (error) {
+        console.error('Firebase initialization failed:', error);
+        const errorDiv = document.getElementById('auth-error');
+        if (errorDiv) {
+            errorDiv.textContent = 'Failed to initialize Firebase. Please try again later.';
+            errorDiv.style.display = 'block';
+        }
+    }
+}
+
+function setupAuthListener() {
+    if (!auth) {
+        return;
+    }
+
+    auth.onAuthStateChanged((user) => {
+        const authScreen = document.getElementById('auth-screen');
+        const dashboard = document.getElementById('dashboard');
+        
+        if (user) {
+            // User is signed in
+            authScreen.style.display = 'none';
+            dashboard.classList.add('visible');
+            document.getElementById('user-info').textContent = `Welcome, ${user.displayName || user.email}`;
+            
+            // Load dashboard data
+            loadDashboardData();
+        } else {
+            // User is signed out
+            authScreen.style.display = 'block';
+            dashboard.classList.remove('visible');
+        }
+    });
+}
 
 // Chart instances
 let viewsChart = null;
@@ -29,29 +79,13 @@ window.addEventListener('resize', () => {
     }
 });
 
-// Authentication State
-auth.onAuthStateChanged((user) => {
-    const authScreen = document.getElementById('auth-screen');
-    const dashboard = document.getElementById('dashboard');
-    
-    if (user) {
-        // User is signed in
-        authScreen.style.display = 'none';
-        dashboard.classList.add('visible');
-        document.getElementById('user-info').textContent = `Welcome, ${user.displayName || user.email}`;
-        
-        // Load dashboard data
-        loadDashboardData();
-    } else {
-        // User is signed out
-        authScreen.style.display = 'block';
-        dashboard.classList.remove('visible');
-    }
-});
-
 // Authentication Functions
 document.getElementById('login-btn').addEventListener('click', async () => {
     console.log('Login button clicked');
+    if (!auth) {
+        console.warn('Firebase not yet initialized. Please wait and try again.');
+        return;
+    }
     const provider = new firebase.auth.GoogleAuthProvider();
     try {
         console.log('Attempting sign in...');
@@ -66,7 +100,9 @@ document.getElementById('login-btn').addEventListener('click', async () => {
 });
 
 document.getElementById('logout-btn').addEventListener('click', () => {
-    auth.signOut();
+    if (auth) {
+        auth.signOut();
+    }
 });
 
 // Time range filter
@@ -76,6 +112,11 @@ document.getElementById('time-range').addEventListener('change', () => {
 
 // Dashboard Data Loading
 async function loadDashboardData() {
+    if (!db) {
+        console.warn('Firebase not yet initialized. Skipping dashboard data load.');
+        return;
+    }
+
     const timeRange = parseInt(document.getElementById('time-range').value);
     const cutoffDate = new Date();
     cutoffDate.setDate(cutoffDate.getDate() - timeRange);
@@ -562,3 +603,5 @@ function parseBrowser(userAgent) {
     
     return 'Other';
 }
+
+initializeDashboard();
