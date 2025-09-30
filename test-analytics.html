@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analytics Test Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+            line-height: 1.6;
+        }
+        .test-section {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            border-left: 4px solid #3498db;
+        }
+        .success {
+            border-left-color: #2ecc71;
+            background: #d4edda;
+        }
+        .error {
+            border-left-color: #e74c3c;
+            background: #f8d7da;
+        }
+        button {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 0.5rem 0;
+        }
+        button:hover {
+            background: #2980b9;
+        }
+        pre {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 1rem;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+        .log {
+            background: #34495e;
+            color: #ecf0f1;
+            padding: 1rem;
+            border-radius: 4px;
+            font-family: monospace;
+            height: 200px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <h1>🧪 Analytics System Test</h1>
+    
+    <div class="test-section">
+        <h3>📊 Step 1: Analytics Script Loading</h3>
+        <p>This page tests if the analytics tracking is working correctly.</p>
+        <div id="script-status">Checking analytics script...</div>
+    </div>
+    
+    <div class="test-section">
+        <h3>🔗 Step 2: Function Connectivity</h3>
+        <p>Test the Firebase Function endpoint directly.</p>
+        <button onclick="testFunction()">Test Function Endpoint</button>
+        <div id="function-status">Not tested yet</div>
+    </div>
+    
+    <div class="test-section">
+        <h3>📝 Step 3: Firestore Connection</h3>
+        <p>Test reading from Firestore (requires dashboard to be configured).</p>
+        <button onclick="testFirestore()">Test Firestore Read</button>
+        <div id="firestore-status">Not tested yet</div>
+    </div>
+    
+    <div class="test-section">
+        <h3>🔍 Step 4: Generate Test Data</h3>
+        <p>Generate some test analytics data by triggering multiple page views.</p>
+        <button onclick="generateTestData()">Generate Test Data</button>
+        <div id="testdata-status">Not generated yet</div>
+    </div>
+    
+    <div class="test-section">
+        <h3>📋 Console Log</h3>
+        <div id="console-log" class="log">Test results will appear here...\n</div>
+        <button onclick="clearLog()">Clear Log</button>
+    </div>
+    
+    <div class="test-section">
+        <h3>🛠 Next Steps</h3>
+        <ol>
+            <li><strong>If all tests pass:</strong> Your analytics system is working! Visit <a href="/admin/" target="_blank">/admin/</a> to see the dashboard.</li>
+            <li><strong>If function test fails:</strong> Check Firebase Console for function deployment status.</li>
+            <li><strong>If Firestore test fails:</strong> Verify authentication is set up and rules are deployed.</li>
+            <li><strong>If script doesn't load:</strong> Check the browser console for JavaScript errors.</li>
+        </ol>
+    </div>
+    
+    <script src="assets/js/analytics.js"></script>
+    <script>
+        const log = document.getElementById('console-log');
+        
+        function addLog(message, type = 'info') {
+            const timestamp = new Date().toLocaleTimeString();
+            const prefix = type === 'error' ? '❌' : type === 'success' ? '✅' : 'ℹ️';
+            log.textContent += `[${timestamp}] ${prefix} ${message}\n`;
+            log.scrollTop = log.scrollHeight;
+        }
+        
+        function clearLog() {
+            log.textContent = 'Test results will appear here...\n';
+        }
+        
+        // Test 1: Check if analytics script loaded
+        window.addEventListener('DOMContentLoaded', () => {
+            const scriptStatus = document.getElementById('script-status');
+            
+            if (window.analytics) {
+                scriptStatus.innerHTML = '<span style="color: green;">✅ Analytics script loaded successfully!</span>';
+                scriptStatus.parentElement.classList.add('success');
+                addLog('Analytics script loaded and initialized', 'success');
+            } else {
+                scriptStatus.innerHTML = '<span style="color: red;">❌ Analytics script failed to load</span>';
+                scriptStatus.parentElement.classList.add('error');
+                addLog('Analytics script failed to load', 'error');
+            }
+        });
+        
+        // Test 2: Function endpoint test
+        async function testFunction() {
+            const status = document.getElementById('function-status');
+            const functionUrl = 'https://us-central1-edmondmiuportfolio.cloudfunctions.net/trackVisit';
+            
+            addLog('Testing function endpoint...');
+            status.innerHTML = 'Testing...';
+            
+            try {
+                const response = await fetch(functionUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        path: '/test-analytics',
+                        referrer: 'test',
+                        userAgent: navigator.userAgent,
+                        platform: navigator.platform
+                    })
+                });
+                
+                if (response.ok) {
+                    const result = await response.json();
+                    status.innerHTML = '<span style="color: green;">✅ Function endpoint working!</span>';
+                    status.parentElement.classList.add('success');
+                    addLog(`Function responded successfully: ${JSON.stringify(result)}`, 'success');
+                } else {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+            } catch (error) {
+                status.innerHTML = `<span style="color: red;">❌ Function test failed: ${error.message}</span>`;
+                status.parentElement.classList.add('error');
+                addLog(`Function test failed: ${error.message}`, 'error');
+            }
+        }
+        
+        // Test 3: Firestore connectivity (basic test)
+        async function testFirestore() {
+            const status = document.getElementById('firestore-status');
+            
+            addLog('Testing Firestore connectivity...');
+            status.innerHTML = 'Testing...';
+            
+            // This is a basic test - in a real implementation you'd need Firebase SDK
+            status.innerHTML = '<span style="color: orange;">⚠️ Manual test required - visit /admin/ to test Firestore</span>';
+            addLog('Firestore test requires manual verification via admin dashboard', 'info');
+        }
+        
+        // Test 4: Generate test data
+        async function generateTestData() {
+            const status = document.getElementById('testdata-status');
+            const functionUrl = 'https://us-central1-edmondmiuportfolio.cloudfunctions.net/trackVisit';
+            
+            addLog('Generating test data...');
+            status.innerHTML = 'Generating...';
+            
+            const testPaths = ['/test-1', '/test-2', '/test-3', '/about', '/', '/projects'];
+            const testReferrers = ['https://google.com', 'https://linkedin.com', 'direct', 'https://github.com'];
+            
+            try {
+                const promises = testPaths.map(async (path, index) => {
+                    return fetch(functionUrl, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            path: path,
+                            referrer: testReferrers[index % testReferrers.length],
+                            userAgent: navigator.userAgent,
+                            platform: navigator.platform
+                        })
+                    });
+                });
+                
+                const results = await Promise.all(promises);
+                const successful = results.filter(r => r.ok).length;
+                
+                status.innerHTML = `<span style="color: green;">✅ Generated ${successful}/${testPaths.length} test visits</span>`;
+                status.parentElement.classList.add('success');
+                addLog(`Successfully generated ${successful} test visits`, 'success');
+                
+            } catch (error) {
+                status.innerHTML = `<span style="color: red;">❌ Test data generation failed: ${error.message}</span>`;
+                status.parentElement.classList.add('error');
+                addLog(`Test data generation failed: ${error.message}`, 'error');
+            }
+        }
+        
+        // Override console methods to capture logs
+        const originalLog = console.log;
+        const originalError = console.error;
+        
+        console.log = function(...args) {
+            addLog(args.join(' '), 'info');
+            originalLog.apply(console, args);
+        };
+        
+        console.error = function(...args) {
+            addLog(args.join(' '), 'error');
+            originalError.apply(console, args);
+        };
+    </script>
+</body>
+</html>

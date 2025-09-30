@@ -1,4 +1,11 @@
 {
+  "functions": {
+    "source": "functions"
+  },
+  "firestore": {
+    "rules": "firestore.rules",
+    "indexes": "firestore.indexes.json"
+  },
   "hosting": {
     "public": ".",
     "ignore": [
@@ -7,7 +14,6 @@
       "**/node_modules/**",
       "static-site/**",
       "wp-*/**",
-      "components/**",
       "README.md"
     ],
     "cleanUrls": true,

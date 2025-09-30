@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analytics Dashboard - edmondmiu.com</title>
+    <style>
+        .admin-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        
+        * {
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            color: #2c3e50;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            margin: 0 0 1rem 0;
+            font-weight: 600;
+            line-height: 1.2;
+        }
+        
+        h1 {
+            font-size: 2rem;
+            color: #2c3e50;
+        }
+        
+        h2 {
+            font-size: 1.5rem;
+        }
+        
+        h3 {
+            font-size: 1.25rem;
+            color: #34495e;
+        }
+        
+        p {
+            margin: 0 0 1rem 0;
+        }
+        
+        .auth-screen {
+            max-width: 400px;
+            margin: 4rem auto;
+            padding: 2rem;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .dashboard {
+            display: none;
+        }
+        
+        .dashboard.visible {
+            display: block;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .stat-card {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #2c3e50;
+            margin: 0.5rem 0;
+        }
+        
+        .stat-label {
+            color: #666;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .chart-container {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+            margin: 2rem 0;
+        }
+        
+        .chart-wrapper {
+            position: relative;
+            height: 300px;
+            width: 100%;
+            margin: 1rem 0;
+            overflow: hidden;
+        }
+        
+        .chart-wrapper canvas {
+            max-width: 100% !important;
+            max-height: 100% !important;
+        }
+        
+        .charts-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        @media (max-width: 768px) {
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .chart-wrapper {
+                height: 250px;
+            }
+        }
+        
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            font-size: 0.9rem;
+        }
+        
+        .data-table th,
+        .data-table td {
+            padding: 12px 16px;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .data-table th {
+            background: #f8f9fa;
+            font-weight: 600;
+            color: #495057;
+            position: sticky;
+            top: 0;
+        }
+        
+        .data-table tbody tr:hover {
+            background: #f8f9fa;
+        }
+        
+        .table-container {
+            max-height: 400px;
+            overflow-y: auto;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+        }
+        
+        .header-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            text-decoration: none;
+            text-align: center;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+        
+        .btn-primary {
+            background: #3498db;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #2980b9;
+        }
+        
+        .btn-secondary {
+            background: #95a5a6;
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background: #7f8c8d;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 2rem;
+            color: #7f8c8d;
+        }
+        
+        .error {
+            background: #e74c3c;
+            color: white;
+            padding: 1rem;
+            border-radius: 4px;
+            margin: 1rem 0;
+        }
+        
+        .time-filter {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin: 1.5rem 0;
+            padding: 1rem;
+            background: white;
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .time-filter label {
+            font-weight: 500;
+            color: #34495e;
+        }
+        
+        .time-filter select {
+            padding: 0.5rem 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            background: white;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: border-color 0.2s;
+        }
+        
+        .time-filter select:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-container">
+        <!-- Authentication Screen -->
+        <div id="auth-screen" class="auth-screen">
+            <h2>Analytics Dashboard</h2>
+            <p>Please sign in to access the analytics dashboard.</p>
+            <button id="login-btn" class="btn btn-primary">Sign in with Google</button>
+            <div id="auth-error" class="error" style="display: none;"></div>
+        </div>
+        
+        <!-- Dashboard Screen -->
+        <div id="dashboard" class="dashboard">
+            <div class="header-actions">
+                <h1>Analytics Dashboard</h1>
+                <div>
+                    <span id="user-info"></span>
+                    <button id="logout-btn" class="btn btn-secondary">Sign Out</button>
+                </div>
+            </div>
+            
+            <div class="time-filter">
+                <label for="time-range">Time Range:</label>
+                <select id="time-range">
+                    <option value="1">Last 24 hours</option>
+                    <option value="7" selected>Last 7 days</option>
+                    <option value="30">Last 30 days</option>
+                    <option value="90">Last 90 days</option>
+                </select>
+            </div>
+            
+            <!-- Stats Overview -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-label">Total Page Views</div>
+                    <div class="stat-number" id="total-views">-</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Avg Session Duration</div>
+                    <div class="stat-number" id="avg-session">-</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Avg Scroll Depth</div>
+                    <div class="stat-number" id="avg-scroll">-</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Top Region</div>
+                    <div class="stat-number" id="top-region">-</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Mobile Users</div>
+                    <div class="stat-number" id="mobile-percent">-</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Avg Load Time</div>
+                    <div class="stat-number" id="avg-load-time">-</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Top Browser</div>
+                    <div class="stat-number" id="top-browser">-</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Top Platform</div>
+                    <div class="stat-number" id="top-platform">-</div>
+                </div>
+            </div>
+            
+            <!-- Charts -->
+            <div class="charts-grid">
+                <div class="chart-container">
+                    <h3>Page Views Over Time</h3>
+                    <div class="chart-wrapper">
+                        <canvas id="views-chart"></canvas>
+                    </div>
+                </div>
+                
+                <div class="chart-container">
+                    <h3>Top Pages</h3>
+                    <div class="chart-wrapper">
+                        <canvas id="pages-chart"></canvas>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Data Tables -->
+            <div class="chart-container">
+                <h3>Recent Visits</h3>
+                <div id="recent-visits-loading" class="loading">Loading...</div>
+                <div class="table-container" id="recent-visits-container" style="display: none;">
+                    <table id="recent-visits-table" class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Time</th>
+                                <th>Page</th>
+                                <th>Region</th>
+                                <th>Device</th>
+                                <th>Platform/OS</th>
+                                <th>Browser</th>
+                                <th>Load Time</th>
+                                <th>Engagement</th>
+                            </tr>
+                        </thead>
+                        <tbody id="recent-visits-body">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="chart-container">
+                <h3>Page Counters</h3>
+                <div id="counters-loading" class="loading">Loading...</div>
+                <div class="table-container" id="counters-container" style="display: none;">
+                    <table id="counters-table" class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Page</th>
+                                <th>Total Views</th>
+                                <th>Last Visit</th>
+                            </tr>
+                        </thead>
+                        <tbody id="counters-body">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Dashboard Script -->
+    <script src="/admin/dashboard.js"></script>
+</body>
+</html>

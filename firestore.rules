@@ -1,0 +1,16 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Visits collection - read-only for authenticated users
+    match /visits/{document} {
+      allow read: if request.auth != null;
+      allow write: if false; // Only functions can write
+    }
+    
+    // Counters collection - read-only for authenticated users  
+    match /counters/{document} {
+      allow read: if request.auth != null;
+      allow write: if false; // Only functions can write
+    }
+  }
+}
