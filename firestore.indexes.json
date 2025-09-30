@@ -2,16 +2,6 @@
   "indexes": [
     {
       "collectionGroup": "visits",
-      "queryScope": "COLLECTION",
-      "fields": [
-        {
-          "fieldPath": "timestamp",
-          "order": "DESCENDING"
-        }
-      ]
-    },
-    {
-      "collectionGroup": "visits",
       "queryScope": "COLLECTION", 
       "fields": [
         {
