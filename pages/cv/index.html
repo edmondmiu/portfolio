@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CV - Edmond Miu</title>
+    <meta name="description" content="Curriculum Vitae of Edmond Miu, Group Head of Design">
+    <meta name="robots" content="noindex, nofollow">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="../../assets/css/main.css">
+    <link rel="stylesheet" href="../../assets/css/cv.css">
+
+    <!-- Favicon -->
+    <link rel="icon" href="../../assets/images/ui/square-1.png" sizes="32x32">
+</head>
+<body class="cv-page">
+
+    <div id="header-placeholder"></div>
+
+    <main id="main">
+        <!-- Password Protected Download Section -->
+        <section class="cv-download-section">
+            <div class="container">
+                <div class="download-card">
+                    <h2>Download CV</h2>
+                    <p>Enter the password to download a PDF version of this CV</p>
+
+                    <div id="password-form" class="password-form">
+                        <input
+                            type="password"
+                            id="cv-password"
+                            placeholder="Enter password"
+                            autocomplete="off"
+                        />
+                        <button type="button" id="unlock-btn">Unlock Download</button>
+                    </div>
+
+                    <div id="download-success" class="download-success" style="display: none;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                        <p>Access granted!</p>
+                        <a href="#" id="download-link" class="download-btn" download>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="7 10 12 15 17 10"></polyline>
+                                <line x1="12" y1="15" x2="12" y2="3"></line>
+                            </svg>
+                            Download CV (PDF)
+                        </a>
+                    </div>
+
+                    <div id="password-error" class="password-error" style="display: none;">
+                        Incorrect password. Please try again.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CV Content - Loaded dynamically after password verification -->
+        <section class="cv-content-section" id="cv-content" style="display: none;">
+            <!-- Content will be injected here after password unlock -->
+        </section>
+    </main>
+
+    <div id="footer-placeholder"></div>
+
+    <!-- Scripts -->
+    <script src="../../assets/js/main.js"></script>
+    <script src="../../assets/js/cv-download.js"></script>
+</body>
+</html>

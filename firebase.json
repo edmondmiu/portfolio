@@ -57,6 +57,11 @@
         "source": "/work/**",
         "destination": "/pages/projects/:splat",
         "type": 301
+      },
+      {
+        "source": "/pages/cv/cv-content.html",
+        "destination": "/pages/cv/",
+        "type": 301
       }
     ]
   }
