@@ -4,7 +4,7 @@
   const CONFIG = {
     password: 'edmond2025', // Change this to your desired password
     pdfUrl: '/assets/documents/EdmondMiu_CV.pdf', // Path to your CV PDF
-    cvContentUrl: 'cv-content.html', // Path to CV content file (relative to cv page)
+    cvContentUrl: 'cv-content-a8f3k2j9p7m4n6q1.html', // Path to CV content file (obfuscated filename)
   };
 
   // DOM elements
@@ -65,13 +65,16 @@
   async function loadAndShowCV() {
     try {
       // Fetch the CV content
+      console.log('Fetching CV content from:', CONFIG.cvContentUrl);
       const response = await fetch(CONFIG.cvContentUrl);
 
+      console.log('Response status:', response.status);
       if (!response.ok) {
-        throw new Error('Failed to load CV content');
+        throw new Error(`Failed to load CV content: ${response.status} ${response.statusText}`);
       }
 
       const htmlContent = await response.text();
+      console.log('CV content loaded successfully, length:', htmlContent.length);
 
       // Hide form and error
       passwordForm.style.display = 'none';
@@ -87,10 +90,13 @@
       if (cvContent) {
         cvContent.innerHTML = htmlContent;
         cvContent.style.display = 'block';
+        console.log('CV content injected successfully');
+      } else {
+        console.error('CV content container not found');
       }
     } catch (error) {
       console.error('Error loading CV:', error);
-      showError('Failed to load CV content. Please try again.');
+      showError(`Failed to load CV content: ${error.message}`);
       sessionStorage.removeItem('cvUnlocked');
     }
   }
